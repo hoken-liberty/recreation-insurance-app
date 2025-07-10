@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レクリエーション保険 見積ヒアリングシート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100">
+
+    <div id="form-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <div class="inline-block bg-theme-red text-white p-4 rounded-lg shadow-md mb-4">
+                <h1 class="text-2xl sm:text-3xl font-bold">リバティ保険ショップ</h1>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">レクリエーション保険 見積ヒアリングシート</h2>
+            <p class="text-gray-600 mt-2">損害保険ジャパン株式会社</p>
+        </header>
+
+        <main id="main-form">
+            <!-- 1. 契約者情報 -->
+            <section class="form-section">
+                <h3 class="form-section-title">1. 契約者情報</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="company-name" class="form-label">法人名・団体名</label>
+                        <input type="text" id="company-name" class="form-input">
+                    </div>
+                    <div>
+                        <label for="contact-person" class="form-label">ご担当者様名</label>
+                        <input type="text" id="contact-person" class="form-input">
+                    </div>
+                    <div>
+                        <label for="department" class="form-label">部署名</label>
+                        <input type="text" id="department" class="form-input">
+                    </div>
+                    <div>
+                        <label for="phone" class="form-label">ご連絡先 (電話番号)</label>
+                        <input type="tel" id="phone" class="form-input">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="email" class="form-label">ご連絡先 (Eメール)</label>
+                        <input type="email" id="email" class="form-input">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="address" class="form-label">所在地</label>
+                        <input type="text" id="address" class="form-input" placeholder="〒">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="form-label">契約者種別</label>
+                        <div class="flex items-center gap-4">
+                            <input type="radio" name="contractor-type" id="type-corp" value="法人・団体" checked>
+                            <label for="type-corp" class="radio-label flex-1 text-center">法人・団体</label>
+                            <input type="radio" name="contractor-type" id="type-other" value="その他">
+                            <label for="type-other" class="radio-label flex-1 text-center">その他</label>
+                        </div>
+                        <input type="text" id="contractor-type-other-text" class="form-input mt-2" placeholder="具体的にご記入ください" style="display: none;">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. イベント基本情報 -->
+            <section class="form-section">
+                <h3 class="form-section-title">2. イベント基本情報</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="event-name" class="form-label">イベント名称</label>
+                        <input type="text" id="event-name" class="form-input">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="event-date" class="form-label">イベント開催期間</label>
+                        <input type="text" id="event-date" class="form-input" placeholder="例: 2025年8月1日(金) 〜 2025年8月2日(土)">
+                        <p class="form-note">複数日にわたる場合は全日程をご記入ください。</p>
+                    </div>
+                     <div>
+                        <label for="event-time" class="form-label">イベント開催時間</label>
+                        <input type="text" id="event-time" class="form-input" placeholder="例: 9時00分 〜 17時00分">
+                    </div>
+                    <div>
+                        <label for="event-participants" class="form-label">参加予定人数</label>
+                        <input type="number" id="event-participants" class="form-input" placeholder="合計人数">
+                        <p class="form-note">原則20名以上からご加入いただけます。</p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="event-location" class="form-label">開催場所</label>
+                        <input type="text" id="event-location" class="form-input" placeholder="施設名、所在地など詳細にご記入ください。">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="event-organizer" class="form-label">主催者名</label>
+                        <input type="text" id="event-organizer" class="form-input">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. イベント内容詳細 -->
+            <section class="form-section">
+                <h3 class="form-section-title">3. イベント内容詳細</h3>
+                <div class="grid grid-cols-1 gap-6">
+                    <div>
+                        <label for="activity-details" class="form-label">主な活動内容</label>
+                        <textarea id="activity-details" class="form-textarea" rows="4" placeholder="例: 運動会、球技大会、BBQ、社員旅行(宿泊なし)、研修会、ウォークラリーなど。複数ある場合は全てご記入ください。"></textarea>
+                    </div>
+                    <div>
+                        <label class="form-label">往復途上傷害の要否</label>
+                        <div class="flex items-center gap-4">
+                            <input type="radio" name="round-trip-coverage" id="trip-needed" value="必要">
+                            <label for="trip-needed" class="radio-label flex-1 text-center">必要</label>
+                            <input type="radio" name="round-trip-coverage" id="trip-not-needed" value="不要" checked>
+                            <label for="trip-not-needed" class="radio-label flex-1 text-center">不要</label>
+                        </div>
+                        <p class="form-note">イベント会場への往復中の事故も補償対象に含めるか。</p>
+                    </div>
+                    <div>
+                        <label class="form-label">飲食物の提供有無</label>
+                        <div class="flex items-center gap-4">
+                            <input type="radio" name="food-provided" id="food-yes" value="あり">
+                            <label for="food-yes" class="radio-label flex-1 text-center">あり</label>
+                            <input type="radio" name="food-provided" id="food-no" value="なし" checked>
+                            <label for="food-no" class="radio-label flex-1 text-center">なし</label>
+                        </div>
+                        <input type="text" id="food-details" class="form-input mt-2" placeholder="提供する飲食物の内容" style="display: none;">
+                    </div>
+                    <div>
+                        <label class="form-label">危険度の高い活動の有無</label>
+                        <div class="flex items-center gap-4">
+                            <input type="radio" name="high-risk-activity" id="risk-yes" value="あり">
+                            <label for="risk-yes" class="radio-label flex-1 text-center">あり</label>
+                            <input type="radio" name="high-risk-activity" id="risk-no" value="なし" checked>
+                            <label for="risk-no" class="radio-label flex-1 text-center">なし</label>
+                        </div>
+                         <input type="text" id="risk-details" class="form-input mt-2" placeholder="具体的な活動内容" style="display: none;">
+                        <p class="form-note">スカイダイビング、ロッククライミング、スキューバダイビング等は補償対象外です。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. ご希望の補償内容 -->
+            <section class="form-section">
+                <h3 class="form-section-title">4. ご希望の補償内容 (傷害保険部分)</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="form-label">A. 基本プラン (おすすめ)</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                            <div class="relative">
+                                <input type="radio" name="coverage-plan" id="plan-premium" value="プレミアム" class="plan-radio">
+                                <label for="plan-premium" class="plan-card text-center cursor-pointer">
+                                    <h4 class="font-bold text-lg text-theme-red">プレミアム</h4>
+                                    <p class="text-sm text-gray-500">死亡・後遺障害: 1,000万円</p>
+                                    <p class="text-sm text-gray-500">入院日額: 10,000円</p>
+                                    <p class="text-sm text-gray-500">通院日額: 5,000円</p>
+                                </label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="coverage-plan" id="plan-standard" value="スタンダード" class="plan-radio" checked>
+                                <label for="plan-standard" class="plan-card text-center cursor-pointer">
+                                    <h4 class="font-bold text-lg text-theme-red">スタンダード</h4>
+                                    <p class="text-sm text-gray-500">死亡・後遺障害: 500万円</p>
+                                    <p class="text-sm text-gray-500">入院日額: 5,000円</p>
+                                    <p class="text-sm text-gray-500">通院日額: 3,000円</p>
+                                </label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" name="coverage-plan" id="plan-light" value="ライト" class="plan-radio">
+                                <label for="plan-light" class="plan-card text-center cursor-pointer">
+                                    <h4 class="font-bold text-lg text-theme-red">ライト</h4>
+                                    <p class="text-sm text-gray-500">死亡・後遺障害: 300万円</p>
+                                    <p class="text-sm text-gray-500">入院日額: 3,000円</p>
+                                    <p class="text-sm text-gray-500">通院日額: 2,000円</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-gray-500 font-semibold">または</div>
+                    <div>
+                        <input type="radio" name="coverage-plan" id="plan-free" value="フリープラン" class="plan-radio">
+                        <label for="plan-free" class="form-label cursor-pointer font-bold text-lg">B. フリープラン (個別設定)</label>
+                        <div id="free-plan-inputs" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border border-gray-200 rounded-lg bg-gray-50">
+                            <div>
+                                <label for="free-death" class="form-label">死亡・後遺障害保険金額</label>
+                                <input type="number" id="free-death" class="form-input" placeholder="例: 8000000" step="100000">
+                            </div>
+                             <div>
+                                <label for="free-hospital" class="form-label">入院保険金日額</label>
+                                <input type="number" id="free-hospital" class="form-input" placeholder="例: 8000" step="1000">
+                            </div>
+                             <div>
+                                <label for="free-surgery" class="form-label">手術保険金</label>
+                                <input type="number" id="free-surgery" class="form-input" placeholder="例: 80000" step="10000">
+                            </div>
+                            <div>
+                                <label for="free-outpatient" class="form-label">通院保険金日額</label>
+                                <input type="number" id="free-outpatient" class="form-input" placeholder="例: 4000" step="1000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label">【オプション特約】</label>
+                         <div class="mt-2">
+                            <input type="checkbox" name="natural-disaster" id="natural-disaster-needed">
+                            <label for="natural-disaster-needed" class="checkbox-label">
+                                <span>天災危険補償特約を付帯する</span>
+                            </label>
+                            <p class="form-note">地震、噴火、津波による傷害も補償対象に含めるか。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 5. レクリエーション賠償責任保険 -->
+            <section class="form-section">
+                <h3 class="form-section-title">5. レクリエーション賠償責任保険 (任意加入)</h3>
+                <div>
+                    <label class="form-label">加入の要否</label>
+                    <div class="flex items-center gap-4">
+                        <input type="radio" name="liability-insurance" id="liability-needed" value="必要">
+                        <label for="liability-needed" class="radio-label flex-1 text-center">必要</label>
+                        <input type="radio" name="liability-insurance" id="liability-not-needed" value="不要" checked>
+                        <label for="liability-not-needed" class="radio-label flex-1 text-center">不要</label>
+                    </div>
+                </div>
+                <div id="liability-inputs" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" style="display: none;">
+                    <div>
+                        <label for="liability-body-person" class="form-label">保険金額 (身体障害 1名あたり)</label>
+                        <input type="number" id="liability-body-person" class="form-input" placeholder="例: 30000000">
+                    </div>
+                    <div>
+                        <label for="liability-body-accident" class="form-label">保険金額 (身体障害 1事故あたり)</label>
+                        <input type="number" id="liability-body-accident" class="form-input" placeholder="例: 100000000">
+                    </div>
+                    <div>
+                        <label for="liability-property" class="form-label">保険金額 (財物損壊 1事故あたり)</label>
+                        <input type="number" id="liability-property" class="form-input" placeholder="例: 2000000">
+                    </div>
+                    <div>
+                        <label for="liability-deductible" class="form-label">自己負担額 (免責金額)</label>
+                        <input type="number" id="liability-deductible" class="form-input" placeholder="例: 5000">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. 重要確認事項 -->
+            <section class="form-section">
+                <h3 class="form-section-title">6. 重要確認事項</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="form-label">参加者名簿の準備状況</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="radio" name="participant-list" id="list-ready" value="準備済み">
+                            <label for="list-ready" class="radio-label flex-1 text-center">準備済み</label>
+                            <input type="radio" name="participant-list" id="list-tbd" value="準備予定" checked>
+                            <label for="list-tbd" class="radio-label flex-1 text-center">準備予定</label>
+                            <input type="radio" name="participant-list" id="list-none" value="準備なし">
+                            <label for="list-none" class="radio-label flex-1 text-center">準備なし</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="confirm-restrictions">
+                        <label for="confirm-restrictions" class="checkbox-label">
+                            <span>危険度の高いスポーツ等、引受対象外の活動が含まれていないことを確認しました。</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+             <!-- 7. その他・特記事項 -->
+            <section class="form-section">
+                <h3 class="form-section-title">7. その他・特記事項</h3>
+                <div>
+                    <label for="special-notes" class="form-label">ご要望やご不明な点、その他お見積りに際して特記すべき事項がございましたらご記入ください。</label>
+                    <textarea id="special-notes" class="form-textarea" rows="5"></textarea>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-8">
+            <button id="generate-pdf" class="btn-pdf">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>PDF形式で出力</span>
+            </button>
+        </footer>
+    </div>
+    
+    <div id="loading-overlay" style="display: none;">
+        <p>PDFを生成中...</p>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

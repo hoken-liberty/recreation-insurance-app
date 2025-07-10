@@ -1,0 +1,141 @@
+/* This file contains the custom styles for the Recreation Insurance Hearing Sheet.
+  It is used in conjunction with Tailwind CSS.
+*/
+
+body {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Theme color definitions */
+.theme-red {
+    color: #CC0022;
+}
+
+.bg-theme-red {
+    background-color: #CC0022;
+}
+
+.border-theme-red {
+    border-color: #CC0022;
+}
+
+/* Form section styling */
+.form-section {
+    background-color: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.form-section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #CC0022;
+    display: flex;
+    align-items: center;
+}
+
+/* Form element styling */
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-input, .form-select, .form-textarea {
+    width: 100%;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #CC0022;
+    box-shadow: 0 0 0 3px rgba(204, 0, 34, 0.2);
+}
+
+.form-note {
+    font-size: 0.875rem;
+    color: #6B7280;
+    margin-top: 0.5rem;
+}
+
+/* Custom radio button and checkbox styling */
+.radio-label, .checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.75rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.radio-label:hover, .checkbox-label:hover {
+    background-color: #fef2f2;
+}
+
+input[type="radio"]:checked + .radio-label, input[type="checkbox"]:checked + .checkbox-label {
+    background-color: #fef2f2;
+    border-color: #CC0022;
+    color: #CC0022;
+    font-weight: 600;
+}
+
+/* Hide the default radio/checkbox inputs */
+input[type="radio"], input[type="checkbox"] {
+    display: none;
+}
+
+/* Plan selection card styling */
+.plan-card {
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+input[type="radio"]:checked + .plan-card {
+    border-color: #CC0022;
+    box-shadow: 0 0 15px rgba(204, 0, 34, 0.15);
+}
+
+/* PDF button styling */
+.btn-pdf {
+    background-color: #CC0022;
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-pdf:hover {
+    background-color: #a3001b;
+}
+
+/* Loading overlay for PDF generation */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    font-size: 1.5rem;
+}
